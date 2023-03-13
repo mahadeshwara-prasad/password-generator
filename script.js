@@ -13,7 +13,8 @@ let strong = document.querySelector('#passwordStrength #strong');
 let passwordInfo = document.getElementById('passwordInfo');
 
 let poorRegExp = /[a-z]/;
-let weakRegExp = /(?=.*?[0-9])/;;
+let PPOORRegExp = /(?=.*?[A-Z])/;
+let weakRegExp = /(?=.*?[0-9])/;
 let strongRegExp = /(?=.*?[#{}?!@$%^&*-])/;
 let whitespaceRegExp = /^$|\s+/;
 
@@ -87,6 +88,7 @@ generateEl.onclick= function(){
      let passwordLength= passwordValue.length;
 
      let poorPassword= passwordValue.match(poorRegExp);
+     let PPOORPassword= passwordValue.match(PPOORRegExp);
      let weakPassword= passwordValue.match(weakRegExp);
      let strongPassword= passwordValue.match(strongRegExp);
      let whitespace= passwordValue.match(whitespaceRegExp);
@@ -102,9 +104,9 @@ if(passwordValue != ""){
  {
   passwordInfo.textContent = "whitespaces are not allowed";
  }else{
- poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
- weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
- strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
+ poorPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword);
+ weakPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword);
+ strongPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword);
 }
 
  
@@ -122,6 +124,7 @@ resultEl.oninput= function(){
     let passwordLength= passwordValue.length;
 
     let poorPassword= passwordValue.match(poorRegExp);
+    let PPOORPassword= passwordValue.match(PPOORRegExp);
     let weakPassword= passwordValue.match(weakRegExp);
     let strongPassword= passwordValue.match(strongRegExp);
     let whitespace= passwordValue.match(whitespaceRegExp);
@@ -137,9 +140,9 @@ if(whitespace)
 {
  passwordInfo.textContent = "whitespaces are not allowed";
 }else{
-poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
-strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword);
+poorPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword);
+weakPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword);
+strongPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword);
 }
 
 
@@ -150,9 +153,9 @@ passwordInfo.style.display = "none";
 
 }
 }
-function poorPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
+function poorPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword){
 
-  if(passwordLength <= 3 && (poorPassword || weakPassword || strongPassword))
+  if(passwordLength <= 3 && (poorPassword || PPOORPassword || weakPassword || strongPassword))
     {
    poor.classList.add("active");
    passwordInfo.style.display = "block";
@@ -162,8 +165,8 @@ function poorPasswordStrength(passwordLength, poorPassword, weakPassword, strong
     }
 }
 
-function weakPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
-if(passwordLength>= 4 && poorPassword && (weakPassword || strongPassword))
+function weakPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword){
+if(passwordLength>= 4 && (poorPassword || PPOORPassword) && (weakPassword || strongPassword))
 {
  weak.classList.add("active");
  passwordInfo.textContent = "Your password is Weak";
@@ -175,9 +178,9 @@ if(passwordLength>= 4 && poorPassword && (weakPassword || strongPassword))
 }
 }
 
-function strongPasswordStrength(passwordLength, poorPassword, weakPassword, strongPassword){
+function strongPasswordStrength(passwordLength, poorPassword, PPOORPassword, weakPassword, strongPassword){
 
-if(passwordLength >= 6 && (poorPassword && weakPassword) && strongPassword)
+if(passwordLength >= 6 && ((poorPassword || PPOORPassword) && weakPassword) && strongPassword)
 {
  poor.classList.add("active");
  weak.classList.add("active");
