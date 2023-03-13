@@ -6,16 +6,18 @@
 
 body {
   background-color: #FF7B54;
-  color: #CD0404;
+  color: #e3ee06;
   font-family: 'Muli', sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   height: 100vh;
   overflow: hidden;
   padding: 10px;
   margin: 0;
+  background-image: url("image.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h2 {
@@ -23,13 +25,19 @@ h2 {
   text-align: center;
 }
 
+h3{
+  color: crimson;
+}
+
 .container {
-  background-color: #EAE0DA;
+  background-color: #01357994;
   box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.2);
   padding: 20px;
   width: 350px;
   max-width: 100%;
   border-radius: 10px;
+  position: absolute;
+  margin-left: 600px;
 }
 
 .result-container {
@@ -142,4 +150,25 @@ color: orange;
 }
 #passwordInfo #strong{
 color: green;
+}
+
+video{
+  width: 300px;
+  height: 360px;
+  margin-top: -180px;
+  margin-left: 160px;
+  border-radius: 10px;
+  position: absolute;
+}
+
+.context{
+  margin-left: 1100px ;
+  position: absolute;
+  width: 300px;
+  margin-top: 0;
+  height: 360px;
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+  color: purple
 }
