@@ -4,6 +4,8 @@ const uppercaseEl = document.getElementById('uppercase')
 const lowercaseEl = document.getElementById('lowercase')
 const numbersEl = document.getElementById('numbers')
 const symbolsEl = document.getElementById('symbols')
+const carsEl = document.getElementById('cars')
+const dpassEl = document.getElementById('dpass')
 const generateEl = document.getElementById('generate')
 const clipboardEl = document.getElementById('clipboard')
 let passwordStrength= document.getElementById('passwordStrength');
@@ -22,7 +24,10 @@ const randomFunc = {
     lower: getRandomLower,
     upper: getRandomUpper,
     number: getRandomNumber,
-    symbol: getRandomSymbol
+    symbol: getRandomSymbol,
+    car: getRandomCar,
+    dpas: getRandomDesignPass,
+    carn: getRandomCarNmb
 }
 
 clipboardEl.addEventListener('click', () => {
@@ -40,14 +45,25 @@ generateEl.addEventListener('click', () => {
     const hasUpper = uppercaseEl.checked
     const hasNumber = numbersEl.checked
     const hasSymbol = symbolsEl.checked
+    const hasCar = carsEl.checked
+    const hasDpass = dpassEl.checked
 
-    resultEl.value = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length)
+    if(hasDpass)
+    {
+        resultEl.value = getRandomDesignPass()
+    }
+    else if(hasCar && hasSymbol && hasNumber){
+        resultEl.value = getRandomCarNmb()
+    }
+    else{
+    resultEl.value = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, hasCar, length)
+    }    
 })
 
-function generatePassword(lower, upper, number, symbol, length) {
+function generatePassword(lower, upper, number, symbol, car, length) {
     let generatedPassword = ''
-    const typesCount = lower + upper + number + symbol
-    const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0])
+    const typesCount = lower + upper + number + symbol + car
+    const typesArr = [{lower}, {upper}, {number}, {symbol}, {car}].filter(item => Object.values(item)[0])
 
     if(typesCount === 0) {
         return ''
@@ -82,6 +98,36 @@ function getRandomSymbol() {
     return symbols[Math.floor(Math.random() * symbols.length)]
 }
 
+function getRandomCar() {
+    const carBrands = ["Ford", "Toyota", "Honda", "Chevrolet", "BMW", "Mercedes-Benz", "Audi", "Ferrari", "Lamborghini", "Porsche"];
+    const carModels = ["Mustang", "Camry", "Civic", "Corvette", "3-Series", "S-Class", "A4", "458-Italia", "Aventador", "911"];
+    const randomBrand = carBrands[Math.floor(Math.random() * carBrands.length)];
+    const randomModel = carModels[Math.floor(Math.random() * carModels.length)];
+    return `${randomBrand}${randomModel}`
+}
+
+function getRandomCarNmb(){
+    const carBrands = ["Ford", "Toyota", "Honda", "Chevrolet", "BMW", "Mercedes-Benz", "Audi", "Ferrari", "Lamborghini", "Porsche"];
+    const carModels = ["Mustang", "Camry", "Civic", "Corvette", "3-Series", "S-Class", "A4", "458-Italia", "Aventador", "911"];
+    const symbols = '!@#$%^&*(){}<>'
+    const randomBrand = carBrands[Math.floor(Math.random() * carBrands.length)];
+    const randomModel = carModels[Math.floor(Math.random() * carModels.length)];
+    const lenBrd = randomBrand.length;
+    const lenMod = randomModel.length;
+    const randomsymbol = symbols[Math.floor(Math.random() * symbols.length)];
+    var randomnum = '';
+    for(let i=1; i < (lengthEl.value-(lenBrd+lenMod)); i++ ){
+        randomnum = randomnum + String.fromCharCode(Math.floor(Math.random() * 10) + 48)
+    }
+    
+    return `${randomBrand}${randomsymbol}${randomModel}${randomnum}`
+}
+
+function getRandomDesignPass() {
+    const Dpass = ["B3stPassw0rdEva!", "MyD0g$N@m31sCh@rli3", "P@ssw0rd123", "IL0v3C@ts&dogs", "Tr0ub4dor&3", "B1gM@c&Ch33s3", "4llF0r0n3&0n3F0r4ll!", "R@inbowC0l0rs!", "P@ssw0rd&Secur1ty", "3xTr@Str0ngP@ssword", "#1M3etMy@ccount!", "Fr33D0m&L1b3rty", "B3$tP@$$w0rdEva!", "$uper$ecur3P@$$", "D0ntF0rgetTh3P@$$", "Th3M@st3r0fP@ssw0rds", "1L0v3P@ssw0rds!", "C0ffee!sL0veD", "4bund@nceOfL0ve", "5@lad&Dre$$ing","B3@ch3s!nMa!n3", "H4ppyB!rthday#", "F!sHing@ndCh!ps" ];
+    
+    return Dpass[Math.floor(Math.random() * Dpass.length)]
+}
 generateEl.onclick= function(){
 
      let passwordValue= resultEl.value;
